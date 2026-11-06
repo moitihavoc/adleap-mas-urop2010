@@ -1,0 +1,126 @@
+Training on device: cuda
+Loading data...
+Total transitions for training loaded: 5913
+Total transitions for validations loaded: 1544
+Starting training...
+Epoch 1/30 - training accuracy: 0.462, validation accuracy: 0.432
+Total Loss: 2.2831
+(Policy: 1.4023, Value: 1.7616)
+
+Epoch 2/30 - training accuracy: 0.519, validation accuracy: 0.467
+Total Loss: 1.5277
+(Policy: 1.2187, Value: 0.6181)
+
+Epoch 3/30 - training accuracy: 0.580, validation accuracy: 0.507
+Total Loss: 1.2544
+(Policy: 1.1119, Value: 0.2849)
+
+Epoch 4/30 - training accuracy: 0.595, validation accuracy: 0.521
+Total Loss: 1.1338
+(Policy: 1.0516, Value: 0.1642)
+
+Epoch 5/30 - training accuracy: 0.634, validation accuracy: 0.529
+Total Loss: 1.0476
+(Policy: 0.9936, Value: 0.1079)
+
+Epoch 6/30 - training accuracy: 0.643, validation accuracy: 0.532
+Total Loss: 0.9911
+(Policy: 0.9432, Value: 0.0958)
+
+Epoch 7/30 - training accuracy: 0.678, validation accuracy: 0.587
+Total Loss: 0.9345
+(Policy: 0.8966, Value: 0.0757)
+
+Epoch 8/30 - training accuracy: 0.707, validation accuracy: 0.602
+Total Loss: 0.8759
+(Policy: 0.8412, Value: 0.0694)
+
+Epoch 9/30 - training accuracy: 0.687, validation accuracy: 0.573
+Total Loss: 0.8286
+(Policy: 0.7942, Value: 0.0689)
+
+Epoch 10/30 - training accuracy: 0.747, validation accuracy: 0.593
+Total Loss: 0.7743
+(Policy: 0.7465, Value: 0.0557)
+
+Epoch 11/30 - training accuracy: 0.744, validation accuracy: 0.605
+Total Loss: 0.7347
+(Policy: 0.7092, Value: 0.0510)
+
+Epoch 12/30 - training accuracy: 0.774, validation accuracy: 0.595
+Total Loss: 0.6922
+(Policy: 0.6684, Value: 0.0476)
+
+Epoch 13/30 - training accuracy: 0.779, validation accuracy: 0.587
+Total Loss: 0.6365
+(Policy: 0.6176, Value: 0.0379)
+
+Epoch 14/30 - training accuracy: 0.805, validation accuracy: 0.591
+Total Loss: 0.6182
+(Policy: 0.5978, Value: 0.0409)
+
+Epoch 15/30 - training accuracy: 0.828, validation accuracy: 0.580
+Total Loss: 0.5785
+(Policy: 0.5578, Value: 0.0415)
+
+Epoch 16/30 - training accuracy: 0.849, validation accuracy: 0.592
+Total Loss: 0.5330
+(Policy: 0.5158, Value: 0.0343)
+
+Epoch 17/30 - training accuracy: 0.847, validation accuracy: 0.595
+Total Loss: 0.4784
+(Policy: 0.4629, Value: 0.0309)
+
+Epoch 18/30 - training accuracy: 0.854, validation accuracy: 0.593
+Total Loss: 0.4513
+(Policy: 0.4339, Value: 0.0347)
+
+Epoch 19/30 - training accuracy: 0.876, validation accuracy: 0.586
+Total Loss: 0.4232
+(Policy: 0.4091, Value: 0.0283)
+
+Epoch 20/30 - training accuracy: 0.866, validation accuracy: 0.572
+Total Loss: 0.3727
+(Policy: 0.3616, Value: 0.0222)
+
+Epoch 21/30 - training accuracy: 0.887, validation accuracy: 0.582
+Total Loss: 0.3601
+(Policy: 0.3428, Value: 0.0347)
+
+Epoch 22/30 - training accuracy: 0.925, validation accuracy: 0.580
+Total Loss: 0.3204
+(Policy: 0.3063, Value: 0.0283)
+
+Epoch 23/30 - training accuracy: 0.936, validation accuracy: 0.574
+Total Loss: 0.2792
+(Policy: 0.2661, Value: 0.0263)
+
+Epoch 24/30 - training accuracy: 0.946, validation accuracy: 0.582
+Total Loss: 0.2531
+(Policy: 0.2376, Value: 0.0310)
+
+Epoch 25/30 - training accuracy: 0.964, validation accuracy: 0.585
+Total Loss: 0.2313
+(Policy: 0.2152, Value: 0.0324)
+
+Epoch 26/30 - training accuracy: 0.962, validation accuracy: 0.568
+Total Loss: 0.2007
+(Policy: 0.1891, Value: 0.0231)
+
+Epoch 27/30 - training accuracy: 0.979, validation accuracy: 0.576
+Total Loss: 0.1982
+(Policy: 0.1882, Value: 0.0199)
+
+Epoch 28/30 - training accuracy: 0.978, validation accuracy: 0.576
+Total Loss: 0.1649
+(Policy: 0.1567, Value: 0.0164)
+
+Epoch 29/30 - training accuracy: 0.975, validation accuracy: 0.578
+Total Loss: 0.1435
+(Policy: 0.1358, Value: 0.0155)
+
+Epoch 30/30 - training accuracy: 0.976, validation accuracy: 0.574
+Total Loss: 0.1492
+(Policy: 0.1417, Value: 0.0151)
+
+Training complete. Model saved to src/models/validation_split_test.pth
