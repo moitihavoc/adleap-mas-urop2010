@@ -1,0 +1,6 @@
+E        +  where 1.0 = <src.envs.LevelForagingEnv.Agent object at 0x75071c1d3a10>.level
+
+tests/test_conditions.py:31: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_conditions.py::test_training_agent_matches_evaluation - ass...
+1 failed, 26 passed in 2.85s

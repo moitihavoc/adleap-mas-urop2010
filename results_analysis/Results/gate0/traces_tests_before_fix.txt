@@ -1,0 +1,25 @@
+
+tests/test_diffusion.py:71: AttributeError
+----------------------------- Captured stdout call -----------------------------
+
+=== step 0: A@(1, 1), B@(5, 5) ===
+             intensity                |                   age                   |                  level                  |                   help                  |                  claim               
+  .  0.30   .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .  
+0.30 1.00A0.30   .    .    .    .     |     .  1.00A  .    .    .    .    .     |     .  0.40A  .    .    .    .    .     |     .  1.00A  .    .    .    .    .     |     .   .A   .    .    .    .    .  
+  .  0.30   .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .  
+  .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .  
+  .    .    .    .    .  0.30   .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .  
+  .    .    .    .  0.30 1.00B0.30    |     .    .    .    .    .  1.00B  .     |     .    .    .    .    .  0.90B  .     |     .    .    .    .    .   .B   .     |     .    .    .    .    .  1.00B  .  
+  .    .    .    .    .  0.30   .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .     |     .    .    .    .    .    .    .  
+=========================== short test summary info ============================
+FAILED tests/test_traces.py::test_diffuse_spreads_whole_trace - TypeError: Tr...
+FAILED tests/test_traces.py::test_diffuse_does_not_overwrite_emitters_and_stays_bounded
+FAILED tests/test_traces.py::test_overlapping_diffusion_prefers_help - assert...
+FAILED tests/test_traces.py::test_standing_help_trace_is_refreshed - assert n...
+FAILED tests/test_traces.py::test_decay_reaches_exact_zero_and_clears_all_channels
+FAILED tests/test_traces.py::test_age_grows_from_zero - assert np.float32(1.0...
+FAILED tests/test_traces.py::test_reset_clears_everything - AttributeError: '...
+FAILED tests/test_traces.py::test_intent_payload_spreads_with_continuous_help
+FAILED tests/test_traces.py::test_small_help_deficit_still_has_priority - Val...
+FAILED tests/test_diffusion.py::test_diffusion_visual - AttributeError: 'Trac...
+10 failed, 2 passed in 0.16s

@@ -4,16 +4,18 @@ import sys
 import os
 sys.path.append(os.getcwd())
 
-from src.envs.LevelForagingEnv import LevelForagingEnv, Agent, Task, generate_random_estimation_scenario
+from src.envs.LevelForagingEnv import LevelForagingEnv, Agent, Task
 from src.envs.StigmergicLevelForagingEnv import StigmergicLevelForagingEnv
 from src.utils.math import random_unit_parts
 from src.reasoning.levelbased.l1 import l1_planning
+from src.utils.scenarios import make_scenario
+from src.utils.evaluation import ADHOC_ANGLE, ADHOC_LEVEL, ADHOC_RADIUS
 
 
 def collect_episode(dim, nagents, ntasks):
     """
     Collect a single episode of data using src.reasoning.levelbased.l1
-    During training, the ad hoc agent has full observability 
+    The ad hoc agent observes with the evaluation's level and field of view (src/utils/evaluation.py)
     Returns a list of dicts, each containing:
         - obs: (9, dim, dim) tensor observation
         - action: int 
@@ -21,22 +23,10 @@ def collect_episode(dim, nagents, ntasks):
         - pi: (5,) numpy array, one-hot policy prior
         - value: float, discounted return 
     """
-    # Create a fresh random environment
-    base_env, _ = generate_random_estimation_scenario(
-        method='l1',
-        adhoc_pos=(1, 1),
-        dim=(dim, dim),
-        nagents=nagents,
-        ntasks=ntasks,
-        type_knowledge=False,
-        parameter_knowledge=True,
-        vision_block=False,
-        template_types=['l1', 'l2'],
-        parameters_minmax=[0.5, 1.0],
-        seed=None,
-        display=False
-    )
-    base_env.get_adhoc_agent().level = 0.9
+    # Create a fresh random environment with the evaluation's ad hoc settings (level, field of view);
+    # make_scenario applies them before the snapshot that reset() restores, so they survive the reset below
+    base_env = make_scenario(dim=dim, nagents=nagents, ntasks=ntasks, adhoc_level=ADHOC_LEVEL,
+                             adhoc_radius=ADHOC_RADIUS, adhoc_angle=ADHOC_ANGLE)
     env = StigmergicLevelForagingEnv(base_env, dim=dim)
 
     # Reset the wrapped environment and obtain the initial tensor observation.

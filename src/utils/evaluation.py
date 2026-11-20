@@ -3,8 +3,8 @@ import random
 import numpy as np
 import torch
 
-from src.envs.LevelForagingEnv import generate_random_estimation_scenario
 from src.envs.StigmergicLevelForagingEnv import StigmergicLevelForagingEnv
+from src.utils.scenarios import make_scenario
 
 
 NUM_SCENARIOS = 100
@@ -16,26 +16,15 @@ ADHOC_ANGLE = 1.0
 ADHOC_LEVEL = 0.9
 
 
-def create_evaluation_set(num_scenarios=NUM_SCENARIOS, seed=2026):
-    """Create one shared evaluation set with the training distribution."""
+def create_evaluation_set(num_scenarios=NUM_SCENARIOS, seed=2026, task_level_range=(0.0, 1.0)):
+    """Create one shared evaluation set with the training distribution (built by make_scenario, like the training data)."""
     random.seed(seed)
     scenarios = []
 
     for _ in range(num_scenarios):
-        base_env, _ = generate_random_estimation_scenario(
-            method='l1', adhoc_pos=(1, 1), dim=(DIM, DIM),
-            nagents=NAGENTS, ntasks=NTASKS, type_knowledge=False,
-            parameter_knowledge=True, vision_block=False,
-            template_types=['l1', 'l2'], parameters_minmax=[0.5, 1.0],
-            seed=None, display=False
-        )
-        base_env.reset()
-
-        adhoc_agent = base_env.get_adhoc_agent()
-        adhoc_agent.radius = ADHOC_RADIUS
-        adhoc_agent.angle = ADHOC_ANGLE
-        adhoc_agent.level = ADHOC_LEVEL
-        scenarios.append(base_env)
+        scenarios.append(make_scenario(dim=DIM, nagents=NAGENTS, ntasks=NTASKS, adhoc_level=ADHOC_LEVEL,
+                                       adhoc_radius=ADHOC_RADIUS, adhoc_angle=ADHOC_ANGLE,
+                                       task_level_range=task_level_range))
 
     return scenarios
 
