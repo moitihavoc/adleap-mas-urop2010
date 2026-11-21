@@ -100,6 +100,14 @@ class TraceField:
         elif self.fields[0, x, y] < intensity:
             self.emit(level, help, payload, position)
 
+    def copy(self):
+        """An independent copy (used when POMCP clones its imagined world, src/envs/TracePlanningEnv.py)."""
+        other = TraceField.__new__(TraceField)
+        other.dim, other.decay_rate, other.diffusion_rate = self.dim, self.decay_rate, self.diffusion_rate
+        other.fields = self.fields.copy()
+        other.emitter = self.emitter.copy()
+        return other
+
     def reset(self):
         self.fields.fill(0.0)  # Clear all traces
         self.emitter.fill(False)

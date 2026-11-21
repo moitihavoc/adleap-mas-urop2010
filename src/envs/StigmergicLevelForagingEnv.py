@@ -63,7 +63,7 @@ class StigmergicLevelForagingEnv(gym.Wrapper):
 
         # emit traces for every agent in the environment
         if self.trace_mode == "intent":
-            self._emit_intent_traces()
+            emit_intent_traces(self.env, self.traces)
         else:
             self._emit_original_traces()
 
@@ -94,27 +94,42 @@ class StigmergicLevelForagingEnv(gym.Wrapper):
 
             self.traces.fusion(level, help_signal, claim, agent.position)
 
-    def _emit_intent_traces(self):
-        adhoc_index = self.env.components['adhoc_agent_index']
-        for agent in self.env.components['agents']:
-            # a load attempt failed if the agent pressed load facing a task that is still there after the step
-            help_deficit = 0.0
-            if agent.next_action == 4:
-                task = there_is_task(self.env, agent.position, agent.direction)
-                if task is not None:
-                    help_deficit = min(max(task.level - agent.level, 0.0), 1.0)
 
-            bearing = (0.0, 0.0) if agent.index == adhoc_index else self._bearing_to_target(agent)
-            self.traces.fusion(agent.level, help_deficit, bearing, agent.position)
+# --- Trace rules shared by the real game (the wrapper above) and POMCP's imagined copies (src/envs/TracePlanningEnv.py),
+# so both produce traces in exactly the same way.
 
-    def _bearing_to_target(self, agent):
-        """Unit vector from the agent to its current target (a position or a task index), (0, 0) if none."""
-        target = agent.target
-        if target is not None and not isinstance(target, (tuple, list)):
-            target = next((task.position for task in self.env.components['tasks']
-                           if task.index == target), None)
-        if target is None:
-            return (0.0, 0.0)
-        dx, dy = target[0] - agent.position[0], target[1] - agent.position[1]
-        norm = math.hypot(dx, dy)
-        return (0.0, 0.0) if norm == 0 else (dx / norm, dy / norm)
+def emit_intent_traces(env, traces):
+    """
+    Every agent in env leaves an intent trace at its own cell (call after env.step, between decay and diffuse).
+        help: the level deficit min(task level - own level, 1) if the agent pressed load facing a task that is still
+              there after the step (a failed load attempt), else 0
+        bearing: unit vector from the agent to its current target; always (0, 0) for the ad hoc agent
+    Returns the number of traces emitted.
+    """
+    adhoc_index = env.components['adhoc_agent_index']
+    emitted = 0
+    for agent in env.components['agents']:
+        # a load attempt failed if the agent pressed load facing a task that is still there after the step
+        help_deficit = 0.0
+        if agent.next_action == 4:
+            task = there_is_task(env, agent.position, agent.direction)
+            if task is not None:
+                help_deficit = min(max(task.level - agent.level, 0.0), 1.0)
+
+        bearing = (0.0, 0.0) if agent.index == adhoc_index else bearing_to_target(env, agent)
+        traces.fusion(agent.level, help_deficit, bearing, agent.position)
+        emitted += 1
+    return emitted
+
+
+def bearing_to_target(env, agent):
+    """Unit vector from the agent to its current target (a position or a task index), (0, 0) if none."""
+    target = agent.target
+    if target is not None and not isinstance(target, (tuple, list)):
+        target = next((task.position for task in env.components['tasks']
+                       if task.index == target), None)
+    if target is None:
+        return (0.0, 0.0)
+    dx, dy = target[0] - agent.position[0], target[1] - agent.position[1]
+    norm = math.hypot(dx, dy)
+    return (0.0, 0.0) if norm == 0 else (dx / norm, dy / norm)
